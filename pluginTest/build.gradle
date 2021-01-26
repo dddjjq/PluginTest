@@ -1,0 +1,49 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    //gradle sdk
+    compile gradleApi()
+    //groovy sdk
+    compile localGroovy()
+    // Android DSL
+    implementation 'com.android.tools.build:gradle:3.6.2'
+    // ASM V7.1
+    implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
+    implementation group: 'org.ow2.asm', name: 'asm-commons', version: '7.1'
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+group = 'com.welson.plugin'
+version = '1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //提交到远程服务器：
+            // repository(url: "http://www.xxx.com/repos") {
+            //    authentication(userName: "admin", password: "admin")
+            // }
+            //本地的Maven地址设置为D:/repos
+            repository(url: uri('D:/repos'))
+        }
+    }
+}
+
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
